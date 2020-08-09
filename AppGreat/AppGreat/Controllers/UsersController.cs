@@ -53,6 +53,19 @@ namespace AppGreat.Controllers
 
             return Ok(response);
         }
+       
+        // GET: api/Users/5/Orders
+        [HttpGet("{id}/Orders")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetUserOrders(int id)
+        {
+            var order = await _context.Orders.Where(o => o.UserId == id).ToListAsync();
 
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return  order;
+        }
     }
 }

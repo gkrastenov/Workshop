@@ -11,8 +11,10 @@
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
+        [Required]
         public decimal Price { get; set; }
 
+        [Required]
         public string Image { get; set; }
 
         public int OrderId { get; set; }
