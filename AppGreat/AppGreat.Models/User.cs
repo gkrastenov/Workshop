@@ -16,6 +16,7 @@
         [MaxLength(PasswordMaxLength)]
         public string Password { get; set; }
 
+        [Required]
         public string CurrencyCode { get; set; }
 
         public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
