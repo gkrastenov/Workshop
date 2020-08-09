@@ -5,11 +5,9 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppGreat", "AppGreat\AppGreat.csproj", "{8B7230CE-75A5-465A-BC5D-0901DBD11C29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGreat.Models", "AppGreat.Models\AppGreat.Models.csproj", "{FE20DB23-0730-4DC6-8FA0-E2188FD542DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppGreat.Models", "AppGreat.Models\AppGreat.Models.csproj", "{FE20DB23-0730-4DC6-8FA0-E2188FD542DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGreat.Service", "AppGreat.Service\AppGreat.Service.csproj", "{E1267EF5-A44B-407B-8C33-27D35BBB3761}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGreat.Data", "AppGreat.Data\AppGreat.Data.csproj", "{76240532-5237-4C7F-AD4A-E98A53F2B9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppGreat.Data", "AppGreat.Data\AppGreat.Data.csproj", "{76240532-5237-4C7F-AD4A-E98A53F2B9DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{FE20DB23-0730-4DC6-8FA0-E2188FD542DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE20DB23-0730-4DC6-8FA0-E2188FD542DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE20DB23-0730-4DC6-8FA0-E2188FD542DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1267EF5-A44B-407B-8C33-27D35BBB3761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1267EF5-A44B-407B-8C33-27D35BBB3761}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1267EF5-A44B-407B-8C33-27D35BBB3761}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1267EF5-A44B-407B-8C33-27D35BBB3761}.Release|Any CPU.Build.0 = Release|Any CPU
 		{76240532-5237-4C7F-AD4A-E98A53F2B9DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{76240532-5237-4C7F-AD4A-E98A53F2B9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76240532-5237-4C7F-AD4A-E98A53F2B9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU

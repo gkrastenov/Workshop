@@ -6,6 +6,9 @@ using Microsoft.Extensions.Hosting;
 
 using Microsoft.EntityFrameworkCore;
 using AppGreat.Data;
+using AppGreat.Helpers;
+using AppGreat.Service.Interface;
+using AppGreat.Service;
 
 namespace AppGreat
 {
@@ -25,7 +28,15 @@ namespace AppGreat
             
             services.AddDbContext<AppGreatDbContext>(opt =>
                opt.UseInMemoryDatabase("AppGreatDbContext"));
+            
+            services.AddCors();
             services.AddControllers();
+
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +51,16 @@ namespace AppGreat
 
             app.UseRouting();
 
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseAuthorization();
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
