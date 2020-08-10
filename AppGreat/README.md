@@ -1,10 +1,10 @@
 
 ## Usage
 
-This REST API using in memory database. For testing is used Postman tool.
-
+This REST API using in memory database. 
+In the database is not set initial mock data. For tasting have to create some objects new user,product and order.
 Launch the application and use the following routings
-https://localhost:<port>/...
+https://localhost:port/...
 
 #### Authorization Endpoint
 Get all users.
@@ -50,7 +50,7 @@ Create new order.
 POST: api/Orders/Create
 ```
 
-Change order status -> It will be given for params -> orderId and new status.
+Change order status -> It will be given for params -> set new status from 1 to 5
 
 ```http
 POST: api/Orders/{id}/ChangeStatus
