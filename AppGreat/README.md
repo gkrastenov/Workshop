@@ -1,6 +1,11 @@
 
 ## Usage
 
+This REST API using in memory database. For testing is used Postman tool.
+
+Launch the application and use the following routings
+https://localhost:<port>/...
+
 #### Authorization Endpoint
 Get all users.
 
@@ -33,25 +38,22 @@ GET specific order by id.
 GET: api/Orders/{id}
 ```
 
-
 Get user orders.
 
 ```http
 GET: api/Users/{id}/Orders
 ```
 
-
-
 Create new order.
 
 ```http
-POST: api/Orders
+POST: api/Orders/Create
 ```
 
 Change order status -> It will be given for params -> orderId and new status.
 
 ```http
-POST: api/Orders/ChangeStatus
+POST: api/Orders/{id}/ChangeStatus
 ```
 
 #### Products Endpoint
@@ -64,15 +66,15 @@ GET: api/Products
 GET specific product by id.
 
 ```http
-GET: api/Products/5
+GET: api/Products/{id}
 ```
 
 Create product with params -> name and price.
 ```http
 PUT: api/Products
 ```
-Create product by given Id.
+Delete product by given Id.
 ```http
-DELETE: api/Products/5
+DELETE: api/Products/{id}
 
 ```
