@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AppGreat.Data;
 using AppGreat.Data.Models;
 using AppGreat.Models;
@@ -37,7 +33,7 @@ namespace AppGreat.Controllers
         }
 
         // POST: api/Orders
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
             _context.Orders.Add(order);
@@ -46,11 +42,11 @@ namespace AppGreat.Controllers
             return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
         }
 
-        // POST: api/Orders/ChangeStatus
-        [HttpPost("ChangeStatus")]
-        public IActionResult Authenticate(OrderChangeStatusRequest order)
+        // POST: api/Orders/id/ChangeStatus
+        [HttpPost("{id}/ChangeStatus")]
+        public IActionResult Authenticate(OrderChangeStatusRequest order, int id)
         {
-            var newOrder = _context.Orders.Where(i => i.Id == order.Id).FirstOrDefault();
+            var newOrder = _context.Orders.Where(i => i.Id == id).FirstOrDefault();
 
             if (newOrder == null)
             {
