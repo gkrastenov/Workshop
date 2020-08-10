@@ -1,5 +1,4 @@
-﻿// [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-namespace AppGreat.Helpers
+﻿namespace AppGreat.Helpers
 {
     using AppGreat.Data.Models;
     using Microsoft.AspNetCore.Http;

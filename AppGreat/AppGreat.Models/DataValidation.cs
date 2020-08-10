@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AppGreat.Models
+﻿namespace AppGreat.Models
 {
     public static class DataValidation
     {

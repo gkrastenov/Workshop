@@ -1,32 +1,32 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using AppGreat.Data;
-using AppGreat.Data.Models;
-using AppGreat.Models;
-
-namespace AppGreat.Controllers
+﻿namespace AppGreat.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using AppGreat.Data;
+    using AppGreat.Data.Models;
+    using AppGreat.Models;
+
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly AppGreatDbContext _context;
+        private readonly AppGreatDbContext context;
 
         public OrdersController(AppGreatDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
-        // GET: api/Orders/5
+        // GET: api/Orders/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await this.context.Orders.FindAsync(id);
 
             if (order == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
             return order;
@@ -36,26 +36,27 @@ namespace AppGreat.Controllers
         [HttpPost("Create")]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
+            this.context.Orders.Add(order);
+            await this.context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
+            return this.CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
         }
 
-        // POST: api/Orders/id/ChangeStatus
+        // POST: api/Orders/{id}/ChangeStatus
         [HttpPost("{id}/ChangeStatus")]
         public IActionResult Authenticate(OrderChangeStatusRequest order, int id)
         {
-            var newOrder = _context.Orders.Where(i => i.Id == id).FirstOrDefault();
+            var newOrder = this.context.Orders.Where(i => i.Id == id).FirstOrDefault();
 
             if (newOrder == null)
             {
-                return BadRequest(new { message = "This order does not exist" });
+                return this.BadRequest(new { message = "This order does not exist" });
             }
-            newOrder.Status = order.Status;
-            _context.SaveChanges();
 
-            return Ok(newOrder);
+            newOrder.Status = order.Status;
+            this.context.SaveChanges();
+
+            return this.Ok(newOrder);
         }
 
 
