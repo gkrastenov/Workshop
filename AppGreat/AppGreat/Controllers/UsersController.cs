@@ -9,6 +9,7 @@ using AppGreat.Data;
 using AppGreat.Data.Models;
 using AppGreat.Service.Interface;
 using AppGreat.Models;
+using Microsoft.AspNetCore.Localization;
 
 namespace AppGreat.Controllers
 {
@@ -66,6 +67,29 @@ namespace AppGreat.Controllers
             }
 
             return  order;
+        }
+
+        // GET: api/Users/5/Products
+        [HttpGet("{id}/Products")]
+        public ActionResult<IEnumerable<Product>> GetAllProductsByUser(int id)
+        {
+            var currentUser = _context.Users.FirstOrDefault(a => a.Id == id);
+
+            if (currentUser == null)
+            {
+                return NotFound();
+            }
+
+            var products = _context.Products.ToList();
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            var response = _userService.TransferProductCurrency(products, currentUser);
+
+            return response.ToList();
         }
     }
 }

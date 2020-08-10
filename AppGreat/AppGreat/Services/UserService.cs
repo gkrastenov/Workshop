@@ -6,12 +6,16 @@
     using AppGreat.Service.Interface;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
+    using System.Threading.Tasks;
+    using Newtonsoft.Json.Linq;
+    using System.Net.Http;
     public class UserService : IUserService
     {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
@@ -35,7 +39,7 @@
             if (user == null) return null;
 
             // authentication successful so generate jwt token
-            var token = generateJwtToken(user);
+            var token = GenerateJwtToken(user);
 
             return new AuthenticateResponse(user, token);
         }
@@ -50,8 +54,31 @@
             return _users.FirstOrDefault(x => x.Id == id);
         }
 
-        // helper methods
-        private string generateJwtToken(User user)
+        public IEnumerable<Product> TransferProductCurrency(List<Product> products, User user)
+        {
+            // If CurrencyCode is BGN, product dont need to be transfered
+            if (user.CurrencyCode == "BGN")
+            {
+                return products;
+            }
+    
+            var exchangedRates = GetExchangeRates();
+            Task.WaitAll(exchangedRates);
+            var rate = exchangedRates.Result;
+
+            decimal exchangedPrice = rate[user.CurrencyCode];
+            foreach (var product in products)
+            {
+                product.Price = product.Price * exchangedPrice;
+            }
+            return products;
+        }
+
+        /// <summary>
+        /// Generate new JWT token for authenticaiton 
+        /// </summary>
+        /// <returns>Token</returns>
+        private string GenerateJwtToken(User user)
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -64,6 +91,20 @@
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        /// <summary>
+        /// Get exchanged rates from another api
+        /// </summary>
+        private async Task<Dictionary<string, decimal>> GetExchangeRates()
+        {
+            HttpClient client = new HttpClient();
+            var responseString = await client.GetStringAsync("https://api.exchangeratesapi.io/latest?base=BGN");
+          
+            var jobject = JsonConvert.DeserializeObject<JObject>(responseString);
+            Dictionary<string, decimal> rates = jobject["rates"].ToObject<Dictionary<string, decimal>>();
+
+            return rates;
         }
     }
 }
